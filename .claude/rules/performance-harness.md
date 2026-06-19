@@ -42,11 +42,18 @@ does the same against your working tree.
 - `pnpm run benchmark:core` — the non-interactive core (`tests_perf/run.ts`).
   CI uses this directly after building the native binary. Flags: `--parser`,
   `--warmup`, `--iterations`, `--out <json>`, `--raw`, and a `compare
-  base.json head.json [--markdown]` subcommand. `--markdown` emits a
+base.json head.json [--markdown]` subcommand. `--markdown` emits a
   GitHub-flavored table (used by the CI job summary + PR comment); plain compare
   prints an ANSI console table. Invoke `compare` via `tsx` directly, not
   `pnpm run benchmark:core --`, since pnpm forwards a literal `--` that shadows
   the subcommand.
+- `pnpm run benchmark:cli` (`tests_perf/cli.ts`) — cold, end-to-end
+  `prettier --check` wall-clock via `hyperfine` (Node start + plugin load +
+  parse + format), over the same corpus. Needs a built `dist` (`pnpm run build`)
+  and `hyperfine` on PATH; `--modes native,built-in` overrides the mode.
+- `pnpm run benchmark:concurrency` (`tests_perf/server-concurrency.ts`) — checks
+  that `built-in` HTTP mode parses concurrent requests in parallel (sequential
+  vs concurrent wall-clock). Needs the parser server running.
 
 ## CI workflow
 

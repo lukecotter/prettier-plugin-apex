@@ -29,6 +29,8 @@
     "test:package": "tsx tests_integration/package/run-package-tests.zx.mts",
     "benchmark": "tsx tests_perf/setup.ts",
     "benchmark:core": "tsx tests_perf/run.ts",
+    "benchmark:cli": "tsx tests_perf/cli.ts",
+    "benchmark:concurrency": "tsx tests_perf/server-concurrency.ts",
     "start-server": "tsx bin/start-apex-server.ts -h 0.0.0.0 -c http://localhost:5173",
     "wait-server": "wait-on --timeout 300000 http://localhost:2117/api/ast/",
     "stop-server": "tsx bin/stop-apex-server.ts",
